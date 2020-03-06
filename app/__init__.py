@@ -1,5 +1,5 @@
-from flask import Flask
+from flask import Flask, url_for
 
 app = Flask(__name__)
 
-from app import routes
+from app import routes, errors, static_app

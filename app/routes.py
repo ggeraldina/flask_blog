@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from . import app
+from app import app
 
 @app.route("/")
 @app.route("/index")
