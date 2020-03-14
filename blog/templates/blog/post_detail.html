@@ -4,24 +4,24 @@
     <div class="post">
         <div class="top_post_detail">
             <div class="date_post_detail">
-                {% if post.published_date %}
+                {% if post.published_date != "NULL" %}
                     <div class="date">
                         {{ post.published_date }}
                     </div>
                 {% else %}
-                    <a class="btn btn-default" href="{% url 'post_publish' pk=post.pk %}">Опубликовать</a>
+                    <a class="btn btn-default" href="">Опубликовать</a>
                 {% endif %}
-                {% if user.is_authenticated %}
-                    <a class="btn btn-default" href="{% url 'post_edit' pk=post.pk %}">
+                {% if True %}
+                    <a class="btn btn-default" href="">
                         <span class="glyphicon glyphicon-pencil"></span>
                     </a>
-                    <a class="btn btn-default" href="{% url 'post_remove' pk=post.pk %}">
+                    <a class="btn btn-default" href="">
                         <span class="glyphicon glyphicon-remove"></span>
                     </a>
                 {% endif %}
             </div>
         </div>
         <h1>{{ post.title }}</h1>
-        <p>{{ post.text|linebreaksbr }}</p>
+        <p>{{ post.text }}</p>
     </div>
 {% endblock %}
