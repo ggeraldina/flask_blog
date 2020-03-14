@@ -139,7 +139,7 @@ disable=print-statement,
         deprecated-sys-function,
         exception-escape,
         comprehension-escape,
-        missing-module-docstring, # временно
+        # missing-module-docstring, # временно
         missing-function-docstring # временно
 
 # Enable the message, report, category or checker with the given id(s). You can
