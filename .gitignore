@@ -2,4 +2,6 @@
 *.pyc
 staticfiles
 venv
+.flaskenv
 .env
+config.py

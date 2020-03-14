@@ -35,3 +35,7 @@
 
     Включить режим отладки в Windows: `set FLASK_DEBUG=1`    
     Выключить в Windows: `set FLASK_DEBUG=0`
+
+6. MongoDB
+
+    heroku config:set MONGOLAB_URI="mongodb://user:password@hostname:port/database"
