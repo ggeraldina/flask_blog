@@ -2,8 +2,15 @@
 
 {% block content %}
     <h1>Новая статья</h1>
-    <form method="POST" class="post-form">{% csrf_token %}
-        {{ form.as_p }}
+    <form method="POST" class="post-form">
+        <p>
+            <label for="id_title">Название:</label> 
+            <input type="text" name="title" value="{{ post.title }}" maxlength="200" required id="id_title">
+        </p>
+        <p>
+            <label for="id_text">Текст:</label> 
+            <textarea name="text" cols="40" rows="10" required id="id_text">{{ post.text }}</textarea>
+        </p>
         <button type="submit" class="save btn btn-default">Сохранить</button>
     </form>
 {% endblock %}

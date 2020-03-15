@@ -7,7 +7,7 @@
                 <p>Опубликовано: {{ post.published_date|datetime_format }}</p>
             </div>
             <h1><a href="{{ url_for('post_detail', primary_key=post._id) }}">{{ post.title }}</a></h1>
-            <p>{{ post.text|truncate(200) }}</p>
+            <p class="post_white_space">{{ post.text | truncate(200) }}</p>
         </div>
     {% endfor %}
 {% endblock %}

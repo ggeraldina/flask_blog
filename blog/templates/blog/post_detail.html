@@ -12,7 +12,7 @@
                     <a class="btn btn-default" href="">Опубликовать</a>
                 {% endif %}
                 {% if True %}
-                    <a class="btn btn-default" href="">
+                    <a class="btn btn-default" href="{{ url_for('post_edit', primary_key=post._id) }}">
                         <span class="glyphicon glyphicon-pencil"></span>
                     </a>
                     <a class="btn btn-default" href="">
