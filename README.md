@@ -38,4 +38,4 @@
 
 6. MongoDB
 
-    heroku config:set MONGOLAB_URI="mongodb://user:password@hostname:port/database"
+    `heroku config:set MONGOLAB_URI="mongodb://user:password@hostname:port/database"`
