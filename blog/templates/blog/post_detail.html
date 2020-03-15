@@ -6,7 +6,7 @@
             <div class="date_post_detail">
                 {% if post.published_date != "NULL" %}
                     <div class="date">
-                        {{ post.published_date }}
+                        {{ post.published_date|datetime_format }}
                     </div>
                 {% else %}
                     <a class="btn btn-default" href="">Опубликовать</a>
