@@ -5,11 +5,11 @@
     <form method="POST" class="post-form">
         <p>
             <label for="id_title">Название:</label> 
-            <input type="text" name="title" value="{{ post.title }}" maxlength="200" required id="id_title">
+            <input type="text" name="title" {% if post %} value="{{ post.title }}" {% endif %} maxlength="200" required id="id_title">
         </p>
         <p>
             <label for="id_text">Текст:</label> 
-            <textarea name="text" cols="40" rows="10" required id="id_text">{{ post.text }}</textarea>
+            <textarea name="text" cols="40" rows="10" required id="id_text">{% if post %}{{ post.text }}{% endif %}</textarea>
         </p>
         <button type="submit" class="save btn btn-default">Сохранить</button>
     </form>
