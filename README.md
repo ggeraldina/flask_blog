@@ -39,3 +39,30 @@
 6. MongoDB
 
     `heroku config:set MONGOLAB_URI="mongodb://user:password@hostname:port/database"`
+
+7. Flask сопоставляет URL и функции отображения, которые будут выводиться. Определение соответствий (маршрутизация) создается с помощью декоратора route или метода add_url_rule() в экземпляре Flask. Получить доступ к этим соответствиям можно с помощью атрибута url_map у экземпляра Flask.
+
+    `print(app.url_map)`
+
+```
+    Map([<Rule '/post/new' (POST, HEAD, GET, OPTIONS) -> post_new>,
+
+    <Rule '/drafts' (OPTIONS, GET, HEAD) -> post_draft_list>,
+
+    <Rule '/index' (OPTIONS, GET, HEAD) -> index>,
+
+    <Rule '/' (OPTIONS, GET, HEAD) -> post_list>,
+
+    <Rule '/post/<primary_key>/publish' (OPTIONS, GET, HEAD) -> post_publish>,
+
+    <Rule '/post/<primary_key>/remove' (OPTIONS, GET, HEAD) -> post_remove>,
+
+    <Rule '/post/<primary_key>/edit' (POST, HEAD, GET, OPTIONS) -> post_edit>,
+
+    <Rule '/static/<filename>' (OPTIONS, GET, HEAD) -> static>,
+
+    <Rule '/post/<primary_key>' (OPTIONS, GET, HEAD) -> post_detail>,
+    
+    <Rule '/<number>' (OPTIONS, GET, HEAD) -> show_number>])
+    
+```

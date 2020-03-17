@@ -9,11 +9,11 @@ from . import app, mongo
 @app.route("/")
 def post_list():
     posts = mongo.db.blog_post.find({
-        "published_date": {"$lt": str(datetime.now().isoformat())}
+        "published_date": {"$lt": str(datetime.utcnow().isoformat())}
         }).sort("published_date")
     return render_template("blog/post_list.html", posts=posts)
 
-@app.route("/post/<ObjectId:primary_key>/")
+@app.route("/post/<ObjectId:primary_key>")
 def post_detail(primary_key):
     post = mongo.db.blog_post.find_one_or_404({"_id": primary_key})
     return render_template("blog/post_detail.html", post=post)
@@ -23,7 +23,7 @@ def save_post(request_post_new, instance_post=None):
     if instance_post:
         post = instance_post
     else:
-        post["create_date"] = str(datetime.now().isoformat())
+        post["create_date"] = str(datetime.utcnow().isoformat())
         post["published_date"] = "NULL"
     post["title"] = request_post_new.form.get("title")
     post["text"] = request_post_new.form.get("text")
@@ -34,14 +34,14 @@ def save_post(request_post_new, instance_post=None):
         post["_id"] = mongo.db.blog_post.insert_one(post).inserted_id
     return redirect(url_for("post_detail", primary_key=post["_id"]))
 
-@app.route("/post/new/", methods=["GET", "POST"])
+@app.route("/post/new", methods=["GET", "POST"])
 def post_new():
     if request.method == "POST":
         return save_post(request)
     else:
         return render_template("blog/post_edit.html")
 
-@app.route("/post/<ObjectId:primary_key>/edit/", methods=["GET", "POST"])
+@app.route("/post/<ObjectId:primary_key>/edit", methods=["GET", "POST"])
 def post_edit(primary_key):
     post = mongo.db.blog_post.find_one_or_404({"_id": primary_key})
     if request.method == "POST":
@@ -49,21 +49,21 @@ def post_edit(primary_key):
     else:
         return render_template("blog/post_edit.html", post=post)
 
-@app.route("/drafts/")
+@app.route("/drafts")
 def post_draft_list():
     posts = mongo.db.blog_post.find({
         "published_date": "NULL"
         }).sort("create_date")
     return render_template("blog/post_draft_list.html", posts=posts)
 
-@app.route("/post/<ObjectId:primary_key>/publish/")
+@app.route("/post/<ObjectId:primary_key>/publish")
 def post_publish(primary_key):
     post = mongo.db.blog_post.find_one_or_404({"_id": primary_key})
-    post["published_date"] = str(datetime.now().isoformat())
+    post["published_date"] = str(datetime.utcnow().isoformat())
     mongo.db.blog_post.update_one({"_id": primary_key}, {"$set": post})
     return redirect(url_for("post_detail", primary_key=primary_key))
 
-@app.route("/post/<ObjectId:primary_key>/remove/")
+@app.route("/post/<ObjectId:primary_key>/remove")
 def post_remove(primary_key):
     mongo.db.blog_post.delete_one({"_id": primary_key})
     return redirect(url_for("post_list"))
@@ -72,7 +72,7 @@ def post_remove(primary_key):
 def index():
     msg = "Привет, замечательный человек!!!"
     data = {"msg": msg}
-    return render_template("blog/index.html", data=data), 200
+    return render_template("blog/index.html", data=data)
 
 @app.route("/<int:number>")
 def show_number(number):
