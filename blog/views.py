@@ -34,7 +34,6 @@ def login_required(func):
         if not session.get("logged_in"):
             flash("Необходимо авторизоваться.")
             return redirect(url_for("login", next=request.url))
-        print(True)
         return func(*args, **kwargs)
     return wrapper
 
