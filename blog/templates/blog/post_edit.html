@@ -8,14 +8,14 @@
             {{ form.title.label }}
             {{ form.title(maxlength="200") }}
             {% for error in form.title.errors %}
-                {{ error }}
+            <span style="color: red;">{{ error }}</span>
             {% endfor %}
         </p>
         <p>
             {{ form.text.label }}
             {{ form.text(cols="40", rows="10") }}
             {% for error in form.text.errors %}
-                {{ error }}
+            <span style="color: red;">{{ error }}</span>
             {% endfor %}
         </p>
         <button type="submit" class="save btn btn-default">Сохранить</button>

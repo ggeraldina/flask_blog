@@ -4,18 +4,31 @@
     {% if form.errors %}
         <p>Неправильное имя или пароль. Пожалуйста, попробуйте еще раз.</p>
     {% endif %}
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <p>{{ message }}</p>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
 
-    <form method="post" action="{% url 'login' %}">
-    {% csrf_token %}
+    <form method="post" action="">
+        {{ form.hidden_tag() }}
         <table>
         <tr>
-            <td class="login_label login_form">{{ form.username.label_tag }}</td>
+            <td class="login_label login_form">{{ form.username.label }}</td>
             <td class="login_input login_form">{{ form.username }}</td>
         </tr>
         <tr>
-            <td class="login_label login_form">{{ form.password.label_tag }}</td>
+            <td class="login_label login_form">{{ form.password.label }}</td>
             <td class="login_input login_form">{{ form.password }}</td>
         </tr>
+        <!-- <tr>
+            <td></td>
+            <td class="login_label login_form">
+                {{ form.remember_me() }} {{ form.remember_me.label }}
+            </td>
+        </tr> -->
         </table>
 
         <input class="btn btn-default" type="submit" value="Войти" />

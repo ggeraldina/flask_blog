@@ -13,18 +13,18 @@
     </head>
     <body>
         <div class="page-header">
-            {% if True %}
+            {% if session["logged_in"] %}
                 <a href="{{ url_for('post_new') }}" class="top-menu">
                     <span class="glyphicon glyphicon-plus"></span>
                 </a>
                 <a href="{{ url_for('post_draft_list') }}" class="top-menu">
                     <span class="glyphicon glyphicon-edit"></span>
                 </a>
-                <a href="" class="top-menu">
+                <a href="{{ url_for('logout') }}" class="top-menu">
                     <span class="glyphicon glyphicon-log-out"></span>
                 </a>
             {% else %}
-                <a href="" class="top-menu">
+                <a href="{{ url_for('login') }}" class="top-menu">
                     <span class="glyphicon glyphicon-log-in"></span>
                 </a>
             {% endif %}
