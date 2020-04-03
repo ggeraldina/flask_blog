@@ -1,4 +1,4 @@
-""" Updating static files by adding a variable. """
+""" Updating static files by adding a variable """
 
 import os
 

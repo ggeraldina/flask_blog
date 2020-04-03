@@ -3,7 +3,7 @@
 {% block content %}
     {% for post in posts %}
         <div class="post">
-            <p class="date">Создано: {{ post.create_date | datetime_format }}</p>
+            <p class="date">Создано: {{ post.create_date | datetime_str_format }}</p>
             <h1><a href="{{ url_for('post_detail', primary_key=post._id) }}">{{ post.title }}</a></h1>
             <p class="post_white_space">{{ post.text | truncate(200) }}</p>
         </div>

@@ -1,4 +1,4 @@
-"""The application."""
+""" The application """
 import os
 
 from flask import Flask, url_for
