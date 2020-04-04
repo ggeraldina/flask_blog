@@ -8,4 +8,12 @@
     </p>
     <button type="submit" class="save btn btn-default" id="getData">Получить сведения</button>
 </form>
+
+<script type="text/javascript">
+    document.getElementById('getData').onclick = async _ => {
+        let login = document.getElementById('login').value
+        let dataset = await fetch('/api/get_userinfo?name=' + login)
+        console.log(await dataset.json())
+    }
+</script>  
 {% endblock %}
