@@ -112,7 +112,7 @@ def post_new():
                 "author": session.get("username", "unknown_author")}
         post["_id"] = MONGO.db.blog_post.insert_one(post).inserted_id
         return redirect(url_for("post_detail", primary_key=post["_id"]))
-    return render_template("blog/post_edit.html", form=form)
+    return render_template("blog/post_edit.html", form=form, title="Новая статья")
 
 @APP.route("/post/<ObjectId:primary_key>/edit", methods=["GET", "POST"])
 @login_required
@@ -124,7 +124,7 @@ def post_edit(primary_key):
                 "text": form.text.data}
         MONGO.db.blog_post.update_one({"_id": primary_key}, {"$set": post})
         return redirect(url_for("post_detail", primary_key=primary_key))
-    return render_template("blog/post_edit.html", form=form)
+    return render_template("blog/post_edit.html", form=form, title="Редактирование")
 
 @APP.route("/drafts")
 @login_required
