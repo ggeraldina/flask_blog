@@ -22,7 +22,12 @@
                 </a>
                 <a href="{{ url_for('logout') }}" class="top-menu">
                     <span class="glyphicon glyphicon-log-out"></span>
-                </a>
+                </a>                
+                {% if session.get("superuser", False) %}
+                    <a href="{{ url_for('superuser_panel') }}" class="top-menu">
+                        <span class="glyphicon glyphicon-user"></span>
+                    </a>
+                {% endif %}
                 <p class="top-menu"> {{ session.get("username") }} </p>
             {% else %}
                 <a href="{{ url_for('login') }}" class="top-menu">

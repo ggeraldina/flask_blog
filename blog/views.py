@@ -20,7 +20,8 @@ def login():
             flash("Неправильное имя или пароль. Пожалуйста, попробуйте еще раз.")
             return redirect(url_for("login"))
         session["logged_in"] = True
-        session["username"] = user["username"]
+        session["username"] = user.get("username", "unknown_user")
+        session["superuser"] = user.get("superuser", False)
         next_page = request.args.get("next")
         if not next_page or url_parse(next_page).netloc != NETLOC:
             next_page = url_for("post_list")
@@ -42,17 +43,31 @@ def login_required(func):
         return func(*args, **kwargs)
     return wrapper
 
+def superuser_required(func):
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        if not session.get("superuser"):
+            return render_template('error_pages/page_not_found.html'), 404
+        return func(*args, **kwargs)
+    return wrapper
+
 @APP.route("/register", methods=["GET", "POST"])
 def register():    
     form = RegistrationForm()
     if form.validate_on_submit():
         user = {"username": form.username.data,
                 "password": generate_password_hash(form.password.data),
+                "superuser": False,
                 "create_date": datetime.utcnow().isoformat()}
         user["_id"] = MONGO.db.blog_user.insert_one(user).inserted_id
         flash("Поздравляем! Вы успешно зарегистрированы")
         return redirect(url_for("login"))
     return render_template("registration/register.html", form=form)
+
+@APP.route("/admin", methods=["GET", "POST"])
+@superuser_required
+def superuser_panel():
+    return render_template("registration/superuser_panel.html")
 
 @APP.route("/")
 def post_list():
