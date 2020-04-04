@@ -1,5 +1,11 @@
 {% extends "blog/base.html" %}
 
 {% block content %}
-    <p>Admin</p>
+<form method="post" action="" class="post-form" onsubmit="return false;">
+    <p>
+        <label for="login" class="login_label login_form">Имя пользователя:</label> 
+        <input type="text"  class="login_input login_form" name="login" value="" maxlength="30" required id="login">
+    </p>
+    <button type="submit" class="save btn btn-default" id="getData">Получить сведения</button>
+</form>
 {% endblock %}

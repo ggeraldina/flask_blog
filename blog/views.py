@@ -3,7 +3,8 @@ import secrets
 from datetime import datetime
 from functools import wraps
 
-from flask import flash, redirect, render_template, request, session, url_for
+from flask import (abort, flash, redirect, render_template, request, session,
+                   url_for)
 from werkzeug.security import check_password_hash, generate_password_hash
 from werkzeug.urls import url_parse
 
@@ -47,7 +48,7 @@ def superuser_required(func):
     @wraps(func)
     def wrapper(*args, **kwargs):
         if not session.get("superuser"):
-            return render_template('error_pages/page_not_found.html'), 404
+            return abort(404)
         return func(*args, **kwargs)
     return wrapper
 
@@ -66,8 +67,24 @@ def register():
 
 @APP.route("/admin", methods=["GET", "POST"])
 @superuser_required
-def superuser_panel():
+def superuser_panel():     
     return render_template("registration/superuser_panel.html")
+
+@APP.route("/api/get_userinfo", methods=["GET"])
+def get_userinfo():
+    login = request.args.get("name")
+    if login is None:
+        return {"message": "Запрос пуст"}
+    user = MONGO.db.blog_user.find_one({"username": login })
+    if user is None:
+        print("Пользователя не существует")
+        return {"message": "Пользователя не существует",
+                "username": login,}
+    print(user.get("create_date", "Дата регистрации неизвестна"))
+    return {"message": "Информация по пользователю",
+            "username": login,
+            "create date": user.get("create_date", "Дата регистрации неизвестна")}
+
 
 @APP.route("/")
 def post_list():
