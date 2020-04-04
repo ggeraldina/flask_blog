@@ -1,16 +1,15 @@
 {% extends "blog/base.html" %}
 
 {% block content %}
-    <div class="content container registration">
-        <p>Новый пользователь? <a href="{{ url_for('register') }}">Хочу зарегистрироваться!</a></p><br>
-    </div>
-    
-    <h1>Вход</h1>
-
+    <h1>Регистрация</h1>
+                
     {% for error in form.username.errors %}
         <p style="color: red;">{{ error }}</p>
     {% endfor %}
     {% for error in form.password.errors %}
+        <p style="color: red;">{{ error }}</p>
+    {% endfor %}
+    {% for error in form.password2.errors %}
         <p style="color: red;">{{ error }}</p>
     {% endfor %}
 
@@ -34,12 +33,15 @@
                 <td class="login_input login_form">{{ form.password(size=30) }}</td>
             </tr>
             <tr>
+                <td class="login_label login_form">{{ form.password2.label }}</td>
+                <td class="login_input login_form">{{ form.password2(size=30) }}</td>
+            </tr>
+            <tr>
                 <td></td>
                 <td class="login_input login_form">
-                    <input class="btn btn-default" type="submit" value="Войти"/>
+                    <input class="btn btn-default" type="submit" value="Зарегистроваться"/>
                 </td>
             </tr>
-        </table>
-        <input class="btn btn-default" type="hidden" name="next" value="{{ next }}" />
+        </table>        
     </form>
 {% endblock %}

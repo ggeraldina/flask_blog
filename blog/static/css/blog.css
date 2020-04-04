@@ -84,3 +84,13 @@ h1, h2, h3, h4 {
 .login_input input{
     width: 100%;
 }
+
+.registration {
+    font-family: 'Lobster', cursive;
+    font-size: 16pt;    
+    color: #000000;
+}
+
+.registration p a, .registration p a:hover, .registration p a:visited {
+    color: #383DBF;
+}
