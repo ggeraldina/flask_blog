@@ -1,5 +1,9 @@
 {% extends 'blog/base.html' %}
 
+{% block title %}
+    {{ post.title }}
+{% endblock %}
+
 {% block content %}
     <div class="post">
         <div class="top_post_detail">
