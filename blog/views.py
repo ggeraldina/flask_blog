@@ -73,14 +73,16 @@ def superuser_panel():
 @APP.route("/api/get_userinfo", methods=["GET"])
 def get_userinfo():
     login = request.args.get("name")
-    if login is None:
+    if login == "":
         return {"message": "Запрос пуст"}
+    attempt_get_login = {"date": datetime.utcnow().isoformat(),
+                         "current_user": session.get("username", "unknown_author"),
+                         "get_login": login}
+    MONGO.db.blog_get_login.insert_one(attempt_get_login)
     user = MONGO.db.blog_user.find_one({"username": login })
     if user is None:
-        print("Пользователя не существует")
         return {"message": "Пользователя не существует",
                 "username": login,}
-    print(user.get("create_date", "Дата регистрации неизвестна"))
     return {"message": "Информация по пользователю",
             "username": login,
             "create date": user.get("create_date", "Дата регистрации неизвестна")}
