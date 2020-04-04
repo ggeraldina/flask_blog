@@ -32,6 +32,7 @@ def login():
 @APP.route("/logout")
 def logout():
     session["logged_in"] = False
+    session["superuser"] = False
     session.pop("username", None)
     return redirect(url_for("post_list"))
 
