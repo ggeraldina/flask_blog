@@ -72,6 +72,7 @@ def superuser_panel():
     return render_template("registration/superuser_panel.html")
 
 @APP.route("/api/get_userinfo", methods=["GET"])
+@superuser_required
 def get_userinfo():
     login = request.args.get("name")
     if login == "":
