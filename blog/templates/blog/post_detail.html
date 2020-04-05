@@ -15,7 +15,7 @@
                 {% else %}
                     <a class="btn btn-default" href="{{ url_for('post_publish', primary_key=post._id) }}">Опубликовать</a>
                 {% endif %}
-                {% if post.author == session.get("username") %}
+                {% if session.get("logged_in", False) %}
                     <a class="btn btn-default" href="{{ url_for('post_edit', primary_key=post._id) }}">
                         <span class="glyphicon glyphicon-pencil"></span>
                     </a>
