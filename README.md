@@ -1,5 +1,7 @@
 # Блог на Flask и MongoDB
 
+https://geraldina-microblog.herokuapp.com/
+
 Визульно похож на [блог на Django](https://github.com/ggeraldina/django_blog), но имеет ряд дополнений
 
 * Регистрация новых пользователей
