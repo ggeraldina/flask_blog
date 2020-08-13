@@ -1,68 +1,42 @@
-## 
-1. Виртуальная среда Python `python -m venv venv`. Первым venv в команде является имя пакета виртуальной среды Python, а второе — имя виртуальной среды
-2. Теперь вам нужно сообщить системе, что вы хотите ее использовать, активируя ее. Чтобы активировать новую виртуальную среду, используете следующую команду.   
-В Windows: `venv\Scripts\activate`; (или `source venv/bin/activate`)
-3. `pip install -r requirements.txt`
+# Блог на Flask и MongoDB
 
-    > общепринятой практикой является создание файла `requirements.txt` в корневой папке проекта с перечислением всех зависимостей и их версий. Создание списка:
-    >
-    > `pip freeze > requirements.txt`
-    >
-    > Команда `pip freeze` создаст дамп всех пакетов, установленных в виртуальной среде, в формате, соответствующем файлу `requirements.txt`. 
+Визульно похож на [блог на Django](https://github.com/ggeraldina/django_blog), но имеет ряд дополнений
 
-4. Запуск `flask run` и переменная среды `FLASK_APP`
+* Регистрация новых пользователей
+* Особые права у админа
 
-    * В терминале запустите приложение, введя `python -m flask run` (для Windows), который запускает сервер разработки Flask. Сервер разработки ищет `app.py` по умолчанию. 
-    
-    * Кроме того, если вы хотите запустить сервер разработки на другой IP-адрес или порт, используйте аргументы командной строки узла и порта, как `--host=0.0.0.0 --port=80`
-    
-    > Если вы хотите использовать другое имя `app.py` файла, например `program.py`, определите переменную среды с именем `FLASK_APP` и установите ее значение для выбранного файла. Затем сервер разработки Flask использует значение `FLASK_APP` вместо файла по умолчанию `app.py`
-    >
-    > В данном случае Flask можно сообщить:
-    > В Windows: `set FLASK_APP=app.py`; (или `export FLASK_APP=app.py`)
+# Заметки
 
-    > Вы можете создать файл .env со всеми переменными среды, которые необходимы вашему приложению. Важно, чтобы вы не добавляли ваш .env-файл в систему управления версиями. Не стоит иметь файл, содержащий пароли и другую конфиденциальную информацию, включенный в репозиторий исходного кода.
+[NOTE.md](NOTE.md)
 
-    > .env-файл можно использовать для всех переменных временной конфигурации, но его нельзя использовать для переменных среды `FLASK_APP` и `FLASK_DEBUG`, так как они необходимы уже в процессе начальной загрузки приложения, до того, как экземпляр приложения и его объект конфигурации появится.
+# Интерфейс
 
-5. Сценарий flask хорош для запуска локального сервера разработки, но вам придется перезапускать его вручную после каждого изменения кода. Это не очень приятно, и фляжка может сделать лучше. Если вы включите поддержку отладки, сервер перезагрузится при изменении кода, а также предоставит вам полезный отладчик, если что-то пойдет не так. 
+Перечень опубликованных статей. Меню незарегестрированного пользователя
 
-    Чтобы включить все функции разработки (включая режим отладки), можно экспортировать переменную среды `FLASK_ENV` и установить ее в значение development перед запуском сервера:    
-    В Windows: `set FLASK_ENV=development`
+<div style="text-align:center">
+    <img alt="Картинка" src="readme_images/01.png" width="70%" vspace="15" hspace="15">
+</div>
 
-    Переменная среды `FLASK_ENV` имеет значение по умолчанию `production`
-    В Windows: `set FLASK_ENV=production`
+Регистрация нового пользователя
 
-    Включить режим отладки в Windows: `set FLASK_DEBUG=1`    
-    Выключить в Windows: `set FLASK_DEBUG=0`
+<div style="text-align:center">
+    <img alt="Картинка" src="readme_images/02.png" width="70%" vspace="15" hspace="15">
+</div>
 
-6. MongoDB
+Список черновых статей. Меню админа
 
-    `heroku config:set MONGOLAB_URI="mongodb://user:password@hostname:port/database"`
+<div style="text-align:center">
+    <img alt="Картинка" src="readme_images/03.png" width="70%" vspace="15" hspace="15">
+</div>
 
-7. Flask сопоставляет URL и функции отображения, которые будут выводиться. Определение соответствий (маршрутизация) создается с помощью декоратора route или метода add_url_rule() в экземпляре Flask. Получить доступ к этим соответствиям можно с помощью атрибута url_map у экземпляра Flask.
+Запрос информации о пользователе. Доступно только админу
 
-    `print(app.url_map)`
+<div style="text-align:center">
+    <img alt="Картинка" src="readme_images/04.png" width="70%" vspace="15" hspace="15">
+</div>
 
-```
-    Map([<Rule '/post/new' (POST, HEAD, GET, OPTIONS) -> post_new>,
+Перечень опубликованных статей. Меню обычного пользователя
 
-    <Rule '/drafts' (OPTIONS, GET, HEAD) -> post_draft_list>,
-
-    <Rule '/index' (OPTIONS, GET, HEAD) -> index>,
-
-    <Rule '/' (OPTIONS, GET, HEAD) -> post_list>,
-
-    <Rule '/post/<primary_key>/publish' (OPTIONS, GET, HEAD) -> post_publish>,
-
-    <Rule '/post/<primary_key>/remove' (OPTIONS, GET, HEAD) -> post_remove>,
-
-    <Rule '/post/<primary_key>/edit' (POST, HEAD, GET, OPTIONS) -> post_edit>,
-
-    <Rule '/static/<filename>' (OPTIONS, GET, HEAD) -> static>,
-
-    <Rule '/post/<primary_key>' (OPTIONS, GET, HEAD) -> post_detail>,
-    
-    <Rule '/<number>' (OPTIONS, GET, HEAD) -> show_number>])
-    
-```
+<div style="text-align:center">
+    <img alt="Картинка" src="readme_images/05.png" width="70%" vspace="15" hspace="15">
+</div>
