@@ -1,0 +1,25 @@
+{% extends "blog/base.html" %}
+
+{% block title %}
+    Узнать логин
+{% endblock %}
+
+{% block content %}
+<form method="post" action="" class="post-form" onsubmit="return false;">
+    <p>
+        <label for="login" class="login_label login_form">Имя пользователя:</label> 
+        <input type="text"  class="login_input login_form" name="login" value="" maxlength="30" required id="login">
+    </p>
+    <button type="submit" class="save btn btn-default" id="getData">Получить сведения</button>
+</form>
+
+<script type="text/javascript">
+    document.getElementById('getData').onclick = async _ => {
+        let login = document.getElementById('login').value
+        let dataset = await fetch('/api/get_userinfo?name=' + login)
+        json = await dataset.json()
+        console.log(json)
+        alert(JSON.stringify(json))
+    }
+</script>  
+{% endblock %}

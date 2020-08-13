@@ -1,17 +1,21 @@
 {% extends 'blog/base.html' %}
 
+{% block title %}
+    {{ post.title }}
+{% endblock %}
+
 {% block content %}
     <div class="post">
         <div class="top_post_detail">
             <div class="date_post_detail">
-                {% if post.published_date != "NULL" %}
+                {% if post.published_date %}
                     <div class="date">
-                        {{ post.published_date|datetime_format }}
+                        {{ post.published_date|datetime_str_format }}
                     </div>
                 {% else %}
                     <a class="btn btn-default" href="{{ url_for('post_publish', primary_key=post._id) }}">Опубликовать</a>
                 {% endif %}
-                {% if True %}
+                {% if session.get("logged_in", False) %}
                     <a class="btn btn-default" href="{{ url_for('post_edit', primary_key=post._id) }}">
                         <span class="glyphicon glyphicon-pencil"></span>
                     </a>

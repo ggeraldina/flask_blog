@@ -9,22 +9,28 @@
         <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lobster&subset=latin,cyrillic">
         <link rel="stylesheet" href="{{ url_for('static', filename='css/blog.css') }}">
 
-        <title>Book's blog</title>
+        <title>{% block title %}Book's blog{% endblock %}</title>
     </head>
     <body>
         <div class="page-header">
-            {% if True %}
+            {% if session.get("logged_in", False) %}
                 <a href="{{ url_for('post_new') }}" class="top-menu">
                     <span class="glyphicon glyphicon-plus"></span>
                 </a>
                 <a href="{{ url_for('post_draft_list') }}" class="top-menu">
                     <span class="glyphicon glyphicon-edit"></span>
                 </a>
-                <a href="" class="top-menu">
+                <a href="{{ url_for('logout') }}" class="top-menu">
                     <span class="glyphicon glyphicon-log-out"></span>
-                </a>
+                </a>                
+                {% if session.get("superuser", False) %}
+                    <a href="{{ url_for('superuser_panel') }}" class="top-menu">
+                        <span class="glyphicon glyphicon-user"></span>
+                    </a>
+                {% endif %}
+                <p class="top-menu"> {{ session.get("username") }} </p>
             {% else %}
-                <a href="" class="top-menu">
+                <a href="{{ url_for('login') }}" class="top-menu">
                     <span class="glyphicon glyphicon-log-in"></span>
                 </a>
             {% endif %}
@@ -32,7 +38,7 @@
                 <a href="/">Book's Blog</a>
             </h1>
         </div>
-        
+                
         <div class="content container">
             <div class="row">
                 <div class="col-md-8">
@@ -40,7 +46,6 @@
                     {% endblock %}
                 </div>
             </div>
-        </div>
-        
+        </div>      
     </body>
 </html>
